@@ -6,7 +6,7 @@
 /*   By: pdelefos <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/11 17:08:19 by pdelefos          #+#    #+#             */
-/*   Updated: 2015/12/11 17:19:17 by pdelefos         ###   ########.fr       */
+/*   Updated: 2015/12/11 17:29:50 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,4 @@ char			*ft_itoa_base(int n, int base)
 			*--str = '-';
 	}
 	return (str);
-}
-
-int		main(int ac, char **av)
-{
-	if (ac == 3)
-		ft_putstr(ft_itoa_base(atoi(av[1]), atoi(av[2])));
-	return (0);
 }
