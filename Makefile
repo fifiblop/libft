@@ -6,10 +6,14 @@
 #    By: pdelefos <pdelefos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/02 15:22:44 by pdelefos          #+#    #+#              #
-#    Updated: 2015/12/11 17:20:54 by pdelefos         ###   ########.fr        #
+#    Updated: 2016/01/29 14:15:14 by pdelefos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME = libft.a
+LIB_NAME = $(NAME)
+
+SRC_PATH = src
 SRC_NAME = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 			ft_isdigit.c ft_islower.c ft_isprint.c ft_isupper.c ft_itoa.c \
 			ft_memalloc.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c \
@@ -25,35 +29,39 @@ SRC_NAME = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c \
 			ft_lstiter.c ft_lstmap.c ft_abs.c ft_strupcase.c ft_strlowcase.c \
 			ft_lstsize.c ft_lst_pback.c ft_itoa_base.c
 
+OBJ_PATH = obj
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
-CC = gcc
+INC_PATH = includes
 
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-LIB_NAME = libft.a
+SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
+OBJ = $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
+INC = $(addprefix -I, $(INC_PATH)/)
 
-HEADER = libft.h
+all: $(NAME)
 
-NAME = libft.a
-
-all : $(NAME)
-
-$(NAME) : $(OBJ_NAME)
-	$(CC) $(CFLAGS) -c $(SRC_NAME)
-	ar rc $(LIB_NAME) $(OBJ_NAME)
+$(NAME): $(OBJ)
+	ar rc $(LIB_NAME) $(OBJ)
 	ranlib $(LIB_NAME)
 
-clean : 
-	rm -fv $(OBJ_NAME)
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
-fclean : clean
+clean: 
+	rm -fv $(OBJ)
+	@rmdir $(OBJ_PATH) 2> /dev/null || true
+
+fclean: clean
 	rm -fv $(NAME)
 
-re : fclean all
+re: fclean all
 
-norme :
+norme:
 	norminette $(SRC_NAME)
-	norminette $(HEADER)
+	norminette $(INC)libft.h
 
-.PHONY : all clean fclean re norme
+.PHONY: all clean fclean re norme
