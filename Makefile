@@ -6,7 +6,7 @@
 #    By: pdelefos <pdelefos@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/02 15:22:44 by pdelefos          #+#    #+#              #
-#    Updated: 2016/01/29 14:15:14 by pdelefos         ###   ########.fr        #
+#    Updated: 2016/01/30 15:05:51 by pdelefos         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,22 +41,33 @@ SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
 INC = $(addprefix -I, $(INC_PATH)/)
 
+NO_COLOR = \x1b[0m
+GREEN = \x1b[32;01m
+RED = \x1b[31;01m
+BLUE = \x1b[34;01m
+MAGENTA = \x1b[35;01m
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(LIB_NAME) $(OBJ)
-	ranlib $(LIB_NAME)
+	@ar rc $(LIB_NAME) $(OBJ)
+	@echo "$(GREEN)AR RC$(NO_COLOR) $(MAGENTA)>>$(NO_COLOR) $(OBJ_PATH) $(MAGENTA)>>$(NO_COLOR) $(NAME)"
+	@ranlib $(LIB_NAME)
+	@echo "$(GREEN)RANLIB$(NO_COLOR) $(MAGENTA)>>$(NO_COLOR) $(LIB_NAME)"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
+	@echo "$(GREEN)CC$(NO_COLOR) $(MAGENTA)>>$(NO_COLOR) $< $(MAGENTA)>>$(NO_COLOR) $@"
 
 clean: 
-	rm -fv $(OBJ)
+	@rm -f $(OBJ)
+	@echo "$(RED)RM >>$(NO_COLOR) $(OBJ_PATH)"
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 
 fclean: clean
-	rm -fv $(NAME)
+	@rm -f $(NAME)
+	@echo "$(RED)RM >>$(NO_COLOR) $(NAME)"
 
 re: fclean all
 
