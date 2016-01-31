@@ -6,14 +6,19 @@
 /*   By: pdelefos <pdelefos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 11:14:35 by pdelefos          #+#    #+#             */
-/*   Updated: 2015/12/09 20:08:33 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/01/31 14:00:51 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <unistd.h>
 # include <string.h>
+
+# define BUFF_SIZE 4096
 
 typedef struct		s_list
 {
@@ -21,6 +26,8 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+int					get_next_line(int const fd, char **line);
 
 t_list				*ft_lstnew(void const *content, size_t content_size);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
