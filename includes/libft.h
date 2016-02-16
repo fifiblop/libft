@@ -6,7 +6,7 @@
 /*   By: pdelefos <pdelefos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 11:14:35 by pdelefos          #+#    #+#             */
-/*   Updated: 2016/01/31 14:00:51 by pdelefos         ###   ########.fr       */
+/*   Updated: 2016/02/16 10:55:05 by pdelefos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int					ft_isascii(int c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
+void				ft_swap(int *a, int *b);
 
 size_t				ft_strlen(const char *s);
 int					ft_strcmp(const char *s1, const char *s2);
